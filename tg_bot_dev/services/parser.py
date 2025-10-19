@@ -10,11 +10,11 @@ class Parser:
         return zapi
 
 
-    def get_recent_problems(self, uri, user, passwd, daus=7):
+    def get_recent_problems(self, uri, user, passwd, days=7):
         zapi = self.get_zapi(uri, user, passwd)
         messages : list[str] = []
         try:
-            time_from = int((datetime.now() - timedelta(days=7)).timestamp())
+            time_from = int((datetime.now() - timedelta(days=days)).timestamp())
 
             # Only ACTIVE problems that STARTED within last 7 days.
             # problem.get by default returns unresolved (active) problems.
