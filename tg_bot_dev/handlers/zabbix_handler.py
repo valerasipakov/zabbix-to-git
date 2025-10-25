@@ -44,39 +44,24 @@ async def send_alerts(message: Message, days: int):
     await message.answer("Готово. Возврат в главное меню ⬇️", reply_markup=main_keyboard)
 
 # --- Команды ---
-@router.message(Command("alerts_3"))
+@router.message(F.text==("Alerts за 3 дня"))
 async def cmd_alerts_3(message: Message):
+    print("1")
     await send_alerts(message, 3)
 
-@router.message(Command("alerts_7"))
+@router.message(F.text==("Alerts за 7 дней"))
 async def cmd_alerts_7(message: Message):
     await send_alerts(message, 7)
 
-@router.message(Command("alerts_30"))
+@router.message(F.text==("Alerts за 30 дней"))
 async def cmd_alerts_30(message: Message):
     await send_alerts(message, 30)
 
-@router.message(Command("alerts_90"))
+@router.message(F.text==("Alerts за 90 дней"))
 async def cmd_alerts_90(message: Message):
     await send_alerts(message, 90)
 
-# --- Inline-кнопки (если используешь InlineKeyboardButton с такими callback_data) ---
-@router.callback_query(F.data == "alerts_3")
-async def cb_alerts_3(cq: CallbackQuery):
-    await send_alerts(cq.message, 3)
-    await cq.answer()
-
-@router.callback_query(F.data == "alerts_7")
-async def cb_alerts_7(cq: CallbackQuery):
-    await send_alerts(cq.message, 7)
-    await cq.answer()
-
-@router.callback_query(F.data == "alerts_30")
-async def cb_alerts_30(cq: CallbackQuery):
-    await send_alerts(cq.message, 30)
-    await cq.answer()
-
-@router.callback_query(F.data == "alerts_90")
-async def cb_alerts_90(cq: CallbackQuery):
-    await send_alerts(cq.message, 90)
-    await cq.answer()
+@router.message(F.text)
+async def echo_log(message: Message):
+    print(f"DEBUG got text: {repr(message.text)}")  # посмотри в консоли точную строку
+    await message.answer("Неизвестная команда")
