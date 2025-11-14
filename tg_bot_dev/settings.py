@@ -12,6 +12,7 @@ load_dotenv()
 class Settings:
     token: str
     acl_ids: Set[int]
+    admins_ids: Set[int]
     zbx_user: str
     zbx_passwd: str
     zbx_uri: str
@@ -36,9 +37,13 @@ def get_settings() -> Settings:
         raise RuntimeError("BOT_TOKEN is not set")
 
     acl_ids = _parse_acl(os.environ.get("ACL_IDS"))
+    admins_ids = _parse_acl(os.environ.get("ADMINS_IDS"))
 
     if not acl_ids:
-        logging.warning("ACL_IDS is empty — никто не сможет писать боту")
+        logging.warning("ACL_IDS is empty  никто не сможет писать боту")
+
+    if not admins_ids:
+        logging.warning("ADMINS_IDS is empty - у бота нет админа")
 
     zbx_user = os.environ.get("ZBX_USER", "")
     zbx_passwd = os.environ.get("ZBX_PASSWD", "")
@@ -54,7 +59,8 @@ def get_settings() -> Settings:
         acl_ids=acl_ids,
         zbx_user=zbx_user,
         zbx_passwd=zbx_passwd,
-        zbx_uri=zbx_uri
+        zbx_uri=zbx_uri,
+        admins_ids=admins_ids
     )
 
 # Единый экземпляр настроек для всего приложения

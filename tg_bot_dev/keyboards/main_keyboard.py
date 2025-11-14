@@ -10,3 +10,15 @@ main_menu = ReplyKeyboardMarkup(
     resize_keyboard=True,   # кнопки подгоняются по ширине экрана
     one_time_keyboard=False # клавиатура не скрывается после нажатия
 )
+
+main_menu_admin = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="Alerts за 3 дня")],
+        [KeyboardButton(text="Alerts за 7 дней")],
+        [KeyboardButton(text="Alerts за 30 дней")],
+        [KeyboardButton(text="Alerts за 90 дней")],
+        [KeyboardButton(text="Админ-зона")],
+    ],
+    resize_keyboard=True,   # кнопки подгоняются по ширине экрана
+    one_time_keyboard=False # клавиатура не скрывается после нажатия
+)

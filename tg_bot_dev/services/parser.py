@@ -70,11 +70,10 @@ class Parser:
                 } for a in alerts]
                 if len(alerts_pretty):
                     message = str()
-                    message +=  f"Host(s): {hosts} \n"
-                    message += f"Problem: {desc} \n"
-                    message += f"Started : {clock_human}\n"
-                    message += "Messages sent by actions:"
-                    message += alerts_pretty[0]["message"][:1000]
+                    message +=  f"Хост: {hosts[0]} \n"
+                    message += f"⛔️ПРОБЛЕМА: {desc} \n"
+                    message += "Cообщение: \n"
+                    message += alerts_pretty[0]["message"][:500]
                     messages.append(message)
             return messages
 

@@ -3,7 +3,7 @@ import asyncio
 import logging
 from aiogram import Bot, Dispatcher
 
-from tg_bot_dev.handlers import zabbix_handler_router   # абсолютный импорт надёжнее при запуске -m
+from tg_bot_dev.handlers import zabbix_handler_router, admin_handler_router, navigation_router   # абсолютный импорт надёжнее при запуске -m
 from tg_bot_dev.settings import settings
 
 logging.basicConfig(
@@ -24,7 +24,9 @@ async def main():
     logging.info(f"Bot @{me.username} (id={me.id}) добавлен в ACL")
 
     # Роутеры
+    dp.include_router(navigation_router)
     dp.include_router(zabbix_handler_router)
+    dp.include_router(admin_handler_router)
 
     # Старт
     await dp.start_polling(bot)
